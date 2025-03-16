@@ -19,9 +19,11 @@ class Group(models.Model):
 
 class Post(models.Model):
     text = models.TextField(verbose_name="Текст поста")
-    pub_date = models.DateTimeField("Дата публикации", auto_now_add=True, db_index=True)
+    pub_date = models.DateTimeField(
+        "Дата публикации", auto_now_add=True, db_index=True)
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="posts", verbose_name="Автор"
+        User, on_delete=models.CASCADE,
+        related_name="posts", verbose_name="Автор"
     )
     group = models.ForeignKey(
         Group,
@@ -46,13 +48,16 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="comments", verbose_name="Автор"
+        User, on_delete=models.CASCADE,
+        related_name="comments", verbose_name="Автор"
     )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name="comments", verbose_name="Пост"
+        Post, on_delete=models.CASCADE,
+        related_name="comments", verbose_name="Пост"
     )
     text = models.TextField(verbose_name="Текст комментария")
-    created = models.DateTimeField("Дата добавления", auto_now_add=True, db_index=True)
+    created = models.DateTimeField(
+        "Дата добавления", auto_now_add=True, db_index=True)
 
     class Meta:
         ordering = ["-created"]
@@ -71,12 +76,14 @@ class Follow(models.Model):
         verbose_name="Подписчик",
     )
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="following", verbose_name="Автор"
+        User, on_delete=models.CASCADE,
+        related_name="following", verbose_name="Автор"
     )
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["user", "following"], name="unique_follow")
+            models.UniqueConstraint(
+                fields=["user", "following"], name="unique_follow")
         ]
         verbose_name = "Подписка"
         verbose_name_plural = "Подписки"

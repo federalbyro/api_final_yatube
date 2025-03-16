@@ -1,4 +1,4 @@
-from api.permissions import IsAuthorOrReadOnly  # Убедитесь, что этот файл существует
+from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (
     CommentSerializer,
     FollowSerializer,
@@ -9,7 +9,9 @@ from django.shortcuts import get_object_or_404
 from posts.models import Comment, Follow, Group, Post
 from rest_framework import mixins, viewsets
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticated, IsAuthenticatedOrReadOnly
+)
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -47,7 +49,7 @@ class FollowViewSet(
 ):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    permission_classes = [IsAuthenticated]  # Только аутентифицированные пользователи
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Follow.objects.filter(user=self.request.user)
