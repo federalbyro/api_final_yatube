@@ -1,12 +1,13 @@
-from rest_framework import viewsets, mixins
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from api.permissions import IsAuthorOrReadOnly  # Убедитесь, что этот файл существует
-from posts.models import Post, Comment, Follow, Group
-from api.serializers import (
-    PostSerializer, CommentSerializer, FollowSerializer, GroupSerializer
-)
+from api.permissions import \
+    IsAuthorOrReadOnly  # Убедитесь, что этот файл существует
+from api.serializers import (CommentSerializer, FollowSerializer,
+                             GroupSerializer, PostSerializer)
 from django.shortcuts import get_object_or_404
+from posts.models import Comment, Follow, Group, Post
+from rest_framework import mixins, viewsets
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import (IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
 
 
 class PostViewSet(viewsets.ModelViewSet):
